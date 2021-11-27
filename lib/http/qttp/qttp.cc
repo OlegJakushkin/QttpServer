@@ -117,7 +117,7 @@ void QttpResponse::write(int length, const QChar* body)
       response_data_.resize(response_data_.length() + length);
       for(int i = 0; i < length; ++i)
       {
-        response_data_.append(body[i]);
+        response_data_.append(body[i].toLatin1());
       }
     }
   }
@@ -128,7 +128,7 @@ void QttpResponse::write(int length, const QChar* body)
       response_data_.resize(response_data_.length() + length);
       for(int i = 0; i < length; ++i)
       {
-        response_data_.append(body[i]);
+        response_data_.append(body[i].toLatin1());
       }
     }
   }

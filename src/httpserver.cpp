@@ -730,7 +730,7 @@ function<void(HttpEvent*)> HttpServer::defaultEventCallback() const
                  obj["query"] = request.getQuery().toString();
                  obj["uid"] = data.getUid().toString();
                  obj["timestamp"] = data.getTimestamp().toString("yyyy/MM/dd hh:mm:ss:zzz");
-                 obj["timeElapsed"] = data.getTime().elapsed();
+                 obj["timeElapsed"] = data.getTime().currentTime().second();
                  obj["timeElapsedMs"] = (qreal)(uv_hrtime() - request.getTimestamp()) /
                                         (qreal)1000000.00;
 
@@ -750,7 +750,7 @@ function<void(HttpEvent*)> HttpServer::defaultEventCallback() const
 bool HttpServer::matchUrl(const QStringList& routeParts, const QString& path, QUrlQuery& params)
 {
 // Using splitRef to reduce string copies.
-  QVector<QStringRef> urlParts = path.splitRef('/', QString::SkipEmptyParts);
+  QStringList urlParts = path.split('/', Qt::SkipEmptyParts);
 
   if(urlParts.length() != routeParts.length())
   {
@@ -762,23 +762,23 @@ bool HttpServer::matchUrl(const QStringList& routeParts, const QString& path, QU
 
   for(int i = 0; i < urlParts.length(); ++i)
   {
-    const QStringRef& urlPart = urlParts[i];
+    const QString & urlPart = urlParts[i];
     const QString& routePart = routeParts[i];
 
     if(routePart.startsWith(':') && routePart.indexOf('(') < 0)
     {
       // We found something like /:id/ so let's make sure we grab that.
       variable = QString(routePart).replace(':', "");
-      params.addQueryItem(variable, urlPart.toString());
+      params.addQueryItem(variable, urlPart);
     }
     else if(routePart.startsWith(':') && routePart.indexOf('(') >= 0)
     {
       // Proceed to grab the regular expression inside the expressed route.
-      QString urlPartTmp = urlPart.toString();
+      QString urlPartTmp = urlPart;
       int regexpBeginIndex = routePart.indexOf('(') + 1;
       int regexpEndIndex = routePart.indexOf(')');
       regexp = routePart.mid(regexpBeginIndex, regexpEndIndex - regexpBeginIndex);
-      bool matches = urlPartTmp.contains(QRegExp(regexp));
+      bool matches = urlPartTmp.contains(QRegularExpression(regexp));
       if(matches)
       {
         variable = QString(routePart).replace(':', "").split('(')[0];

@@ -11,7 +11,6 @@ HttpData::HttpData(QttpRequest* req, QttpResponse* resp) :
   m_Uid(QUuid::createUuid()),
   m_Time()
 {
-  m_Time.start();
 }
 
 HttpData::~HttpData()

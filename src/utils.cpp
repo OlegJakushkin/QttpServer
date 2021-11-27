@@ -244,7 +244,7 @@ void LoggingUtils::fileLogger(QtMsgType type, const QMessageLogContext& context,
   // every write.
   if(log.m_TimerId == -1)
   {
-    log.m_Stream << msg << endl;
+    log.m_Stream << msg << Qt::endl;
   }
   else
   {
