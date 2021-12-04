@@ -20,3 +20,6 @@ include($$PWD/config/config.pri)
 
 message('Including core files')
 include($$PWD/../../core.pri)
+
+HEADERS += \
+    laptops.h
