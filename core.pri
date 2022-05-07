@@ -25,6 +25,7 @@ contains(CONFIG, HTTP_PARSER_WORKAROUND) {
 }
 
 message('Including qttp source files')
+include($$PWD/lib/http/http.pri)
 include($$PWD/src/qttp.pri)
 
 OTHER_FILES += \
