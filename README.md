@@ -7,9 +7,19 @@ modern C++, QttpServer also employs Qt to promote productivity and reinforce bes
 for systems that are resource constrained, general prototyping, integrate into existing Qt 
 Applications, or if you simply wish to save a few bucks on your cloud servers.
 
-**Getting started is EASY!**  Just load [qttpserver.pro](./qttpserver.pro) into [QtCreator](./img/qtcreator_project_setup_full.png)!
+**Getting started is EASY!**
 
-Check out the [examples](./examples/) and samples to get started with your RESTful API server!
+On linux run
+```
+sudo apt-get update
+sudo apt-get install libuv1-dev libhttp-parser-dev npm
+sudo npm install -g node-gyp --allow-root --unsafe-perm
+
+```
+Just load `./examples/helloworld.pro` into QtCreator
+
+
+Check out other [examples](./examples/) and samples to get started with your RESTful API server!
 
 <img src="/img/qttp_eventloops.png" alt="QttpServer" width="50%" height="50%">
 
